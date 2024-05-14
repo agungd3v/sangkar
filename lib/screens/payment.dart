@@ -304,7 +304,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   if (check_status) const SizedBox(width: 12),
                   Expanded(child: GestureDetector(
                     onTap: () {
-                      context.goNamed("Home");
+                      context.goNamed("Profile");
                     },
                     child: Container(
                       height: 34,
