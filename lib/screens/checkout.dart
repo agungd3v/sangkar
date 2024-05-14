@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:sangkar/components/payment/virtual_account.dart';
 // import 'package:sangkar/components/payment/virtual_account_syariah.dart';
@@ -29,6 +30,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   };
 
   bool agreement = false;
+  bool loading = false;
 
   Future _payment() async {
     if (payment_provider.selected_bank == "") return ScaffoldMessenger.of(context).showSnackBar(
@@ -47,6 +49,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     );
 
     if (agreement) {
+      setState(() => loading = true);
+
       final checkout = await request_virtual_account(
         payment_provider.selected_bank,
         {
@@ -66,6 +70,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       );
 
       if (checkout["status"]) {
+        setState(() => loading = false);
+
         Map<String, dynamic> _response = {
           "transaction_id": checkout["data"]["transaction_id"],
           "order_id": checkout["data"]["order_id"],
@@ -382,27 +388,34 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         )
                       )),
                       GestureDetector(
-                        onTap: () => _payment(),
+                        onTap: () {
+                          if (!loading) {
+                            _payment();
+                          }
+                        },
                         child: Container(
                           height: 38,
-                          padding: const EdgeInsets.symmetric(horizontal: 38),
+                          width: 128,
+                          alignment: Alignment.center,
                           decoration: BoxDecoration(
                             borderRadius: const BorderRadius.all(Radius.circular(8)),
                             color: HexColor("#00AA13")
                           ),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Image.asset("assets/shield.png", width: 20, height: 20),
-                              const SizedBox(width: 6),
-                              const Text(
+                              if (!loading) Image.asset("assets/shield.png", width: 20, height: 20),
+                              if (!loading) const SizedBox(width: 6),
+                              if (!loading) const Text(
                                 "Bayar",
                                 style: TextStyle(
                                   fontFamily: "Roboto",
                                   fontWeight: FontWeight.w700,
                                   color: Colors.white,
                                   fontSize: 16
-                                ),
-                              )
+                                )
+                              ),
+                              if (loading) LoadingAnimationWidget.horizontalRotatingDots(color: Colors.white, size: 40)
                             ]
                           )
                         )
