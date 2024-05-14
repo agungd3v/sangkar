@@ -26,19 +26,9 @@ class AppNavigator {
     debugLogDiagnostics: true,
     routes: [
       StatefulShellRoute.indexedStack(
-        pageBuilder: (context, state, navigationShell) => CustomTransitionPage(
-          child: TabIndex(navigationShell: navigationShell),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return SlideTransition(
-              position: Tween<Offset>(begin: Offset(-1, 0), end: Offset.zero).animate(CurvedAnimation(parent: animation, curve: Curves.easeInSine)),
-              transformHitTests: true,
-              child: child,
-            );
-          }
-        ),
-        // builder: (context, state, navigationShell) {
-        //   return TabIndex(navigationShell: navigationShell);
-        // },
+        builder: (context, state, navigationShell) {
+          return TabIndex(navigationShell: navigationShell);
+        },
         branches: <StatefulShellBranch>[
           StatefulShellBranch(
             navigatorKey: _rootKeyHome,
@@ -85,17 +75,6 @@ class AppNavigator {
         builder: (BuildContext context, GoRouterState state) {
           return DetailScreen(key: state.pageKey);
         }
-        // pageBuilder: (context, state) => CustomTransitionPage(
-        //   key: state.pageKey,
-        //   child: DetailScreen(key: state.pageKey),
-        //   transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        //     return SlideTransition(
-        //       position: Tween<Offset>(begin: Offset(1, 0), end: Offset.zero).animate(CurvedAnimation(parent: animation, curve: Curves.fastOutSlowIn)),
-        //       transformHitTests: true,
-        //       child: child
-        //     );
-        //   }
-        // )
       ),
       GoRoute(
         parentNavigatorKey: _rootKey,
