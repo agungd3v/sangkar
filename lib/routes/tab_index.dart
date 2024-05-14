@@ -37,7 +37,7 @@ class _TabIndexState extends State<TabIndex> {
         ),
         PersistentRouterTabConfig(
           item: ItemConfig(
-            icon: Image.asset("assets/livestock.png", width: 26, height: 26),
+            icon: Image.asset("assets/livestock.png", width: 30, height: 30),
             activeForegroundColor: HexColor("#00AA13"),
             title: "Ternak Saya",
             textStyle: const TextStyle(
@@ -65,9 +65,9 @@ class _TabIndexState extends State<TabIndex> {
       backgroundColor: Colors.white,
       navBarBuilder: (navBarConfig) => Style13BottomNavBar(
         navBarConfig: navBarConfig,
-        // navBarDecoration: NavBarDecoration(
-        //   border: Border.all(color: Colors.black12, width: 1),
-        // )
+        navBarDecoration: NavBarDecoration(
+          border: Border.all(color: HexColor("#EDEDED"), width: 1)
+        )
       ),
       navigationShell: widget.navigationShell
     );

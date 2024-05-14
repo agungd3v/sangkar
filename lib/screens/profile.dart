@@ -18,7 +18,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           backgroundColor: HexColor("#00AA13"),
           automaticallyImplyLeading: false
         )
-      )
+      ),
+      body: Container()
     );
   }
 }
