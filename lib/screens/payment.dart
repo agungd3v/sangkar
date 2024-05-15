@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:sangkar/provider/payment_provider.dart';
 import 'package:sangkar/utils/function.dart';
 import 'package:sangkar/utils/request_payment.dart';
+import 'package:toastification/toastification.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({super.key});
@@ -49,19 +50,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
         setState(() => check_status = false);
       }
 
-      return ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            message,
-            style: TextStyle(
-              fontFamily: "Roboto",
-              fontWeight: FontWeight.w700,
-              color: HexColor("#FFFFFF"),
-              fontSize: 12
-            )
-          ),
-          backgroundColor: HexColor("#00AA13"),
-        )
+      return toastification.show(
+        type: ToastificationType.warning,
+        style: ToastificationStyle.flat,
+        title: Text(message, style: TextStyle(fontSize: 12, fontFamily: "Roboto", color: HexColor("#292929"))),
+        // description: Widget,
+        foregroundColor: HexColor("#292929"),
+        alignment: Alignment.topCenter,
+        autoCloseDuration: const Duration(seconds: 4),
+        showProgressBar: false,
+        borderRadius: BorderRadius.circular(12.0),
       );
     }
   }

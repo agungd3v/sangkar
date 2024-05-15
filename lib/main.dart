@@ -7,6 +7,7 @@ import 'package:sangkar/app_navigator.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:sangkar/provider/payment_provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:toastification/toastification.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
@@ -29,15 +30,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp.router(
-      title: "Sangkar App",
-      debugShowCheckedModeBanner: false,
-      routerConfig: AppNavigator.router,
-      localizationsDelegates: [
-        DefaultMaterialLocalizations.delegate,
-        DefaultCupertinoLocalizations.delegate,
-        DefaultWidgetsLocalizations.delegate,
-      ]
+    return ToastificationWrapper(
+      child: CupertinoApp.router(
+        title: "Sangkar App",
+        debugShowCheckedModeBanner: false,
+        routerConfig: AppNavigator.router,
+        localizationsDelegates: [
+          DefaultMaterialLocalizations.delegate,
+          DefaultCupertinoLocalizations.delegate,
+          DefaultWidgetsLocalizations.delegate,
+        ]
+      )
     );
   }
 }

@@ -10,6 +10,7 @@ import 'package:sangkar/components/payment/virtual_account.dart';
 import 'package:sangkar/provider/payment_provider.dart';
 import 'package:sangkar/utils/function.dart';
 import 'package:sangkar/utils/request_payment.dart';
+import 'package:toastification/toastification.dart';
 
 class CheckoutScreen extends StatefulWidget {
   const CheckoutScreen({super.key});
@@ -33,19 +34,16 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   bool loading = false;
 
   Future _payment() async {
-    if (payment_provider.selected_bank == "") return ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          "Pilih metode pembayaran terlebih dahulu",
-          style: TextStyle(
-            fontFamily: "Roboto",
-            fontWeight: FontWeight.w700,
-            color: HexColor("#292929"),
-            fontSize: 12
-          )
-        ),
-        backgroundColor: Colors.yellow,
-      )
+    if (payment_provider.selected_bank == "") return toastification.show(
+      type: ToastificationType.warning,
+      style: ToastificationStyle.flat,
+      title: Text("Pilih metode pembayaran terlebih dahulu", style: TextStyle(fontSize: 12, fontFamily: "Roboto", color: HexColor("#292929"))),
+      // description: Widget,
+      foregroundColor: HexColor("#292929"),
+      alignment: Alignment.topCenter,
+      autoCloseDuration: const Duration(seconds: 4),
+      showProgressBar: false,
+      borderRadius: BorderRadius.circular(12.0),
     );
 
     if (agreement) {
@@ -102,19 +100,16 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       }
     }
 
-    return ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          "Belum menyetujui syarat & ketentuan",
-          style: TextStyle(
-            fontFamily: "Roboto",
-            fontWeight: FontWeight.w700,
-            color: HexColor("#292929"),
-            fontSize: 12
-          )
-        ),
-        backgroundColor: Colors.yellow,
-      )
+    return toastification.show(
+      type: ToastificationType.warning,
+      style: ToastificationStyle.flat,
+      title: Text("Belum menyetujui syarat & ketentuan", style: TextStyle(fontSize: 12, fontFamily: "Roboto", color: HexColor("#292929"))),
+      // description: Widget,
+      foregroundColor: HexColor("#292929"),
+      alignment: Alignment.topCenter,
+      autoCloseDuration: const Duration(seconds: 4),
+      showProgressBar: false,
+      borderRadius: BorderRadius.circular(12.0),
     );
   }
 

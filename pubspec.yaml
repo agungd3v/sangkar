@@ -45,6 +45,7 @@ dependencies:
   provider: ^6.1.2
   flutter_timer_countdown: ^1.0.7
   loading_animation_widget: ^1.2.1
+  toastification: ^2.0.0
 
 dev_dependencies:
   flutter_test:
